@@ -109,6 +109,14 @@ local newLocker = function(id,data)
   return self
 end
 
+RegisterNetEvent("dirk-lockers:buyLocker", function(id)
+  local src = source
+  local locker = getLockerById(id)
+  if not locker then return false, "Locker does not exist"; end
+  local success, msg = locker.buyLocker(src)
+  if msg then Core.UI.Notify(src, msg); end
+end)  
+
 getLockerById = function(id)
   return lockers[id]
 end

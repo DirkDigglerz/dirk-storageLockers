@@ -24,7 +24,7 @@ local getInteractOptions = function(id)
       end,
 
       action = function()
-        print('Buy locker')
+        TriggerServerEvent("dirk-lockers:buyLocker", self.id)
       end,
     },
   }
@@ -71,8 +71,6 @@ local newLocker = function(id,data)
 
   self.spawnModel = function()  
     if not self.model then return false; end
-    print('registeirn moddel ', self.model, self.modelType)
-    print(self.pos.x, self.pos.y, self.pos.z, self.pos.w)
     Core.Objects.Register(self.id, {
       Type         = self.modelType,
       Pos          = vector4(self.pos.x, self.pos.y, self.pos.z - 1.0, self.pos.w),
@@ -129,7 +127,6 @@ end)
 
 onReady(function()
   local serverData = Core.SyncCallback('dirk-lockers:get')
-  print('here we are')
   for id,data in pairs(serverData) do 
     local locker = newLocker(id,data)
     locker.spawnModel()
